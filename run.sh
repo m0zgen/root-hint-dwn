@@ -29,6 +29,8 @@ function check_root() {
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -r|--root) _ROOT=1; ;;
+        -u|--url) _URL=1 _URL_DATA=$2; ;;
+        -t|--target) _TARGET=1 _TARGET_DATA=$2; ;;
         -c|--command) _COMMAND=1 _COMMAND_DATA=$2; shift ;;
         -h|--help) usage ;; 
         # *) usage ;;
@@ -42,8 +44,8 @@ if [ ! -z ${_ROOT} ]; then
 fi
 
 # Check passed command
-if [ ${_COMMAND} -eq 1 ]; then
-    if [ -z ${_COMMAND_DATA} ]; then
+if [[ "${_COMMAND}" -eq "1" ]]; then
+    if [[ -z "${_COMMAND_DATA}" ]]; then
         echo "No command passed"
         exit 1
     fi
@@ -51,6 +53,32 @@ if [ ${_COMMAND} -eq 1 ]; then
     exit 0
 fi
 
+# Check passed URL
+if [[ "${_URL}" -eq "1" ]]; then
+    if [[ -z "${_URL_DATA}" ]]; then
+        echo "No URL passed"
+        exit 1
+    fi
+    ROOT_HINT_URL="${_URL_DATA}"
+fi
+
+# Check passed target
+if [[ "${_TARGET}" -eq "1" ]]; then
+    if [[ -z "${_TARGET_DATA}" ]]; then
+        echo "No target passed"
+        exit 1
+    fi
+    DOWNLOAD_TARGET="${_TARGET_DATA}"
+fi
+
+# Return concatenated string without last slash
+function concat_string {
+    local _STRING=$1
+    local _STRING_LENGTH=${#_STRING}
+    local _STRING_LENGTH_MINUS_ONE=$(( ${_STRING_LENGTH} - 1 ))
+    local _STRING_WITHOUT_LAST_SLASH=${_STRING:0:${_STRING_LENGTH_MINUS_ONE}}
+    echo "${_STRING_WITHOUT_LAST_SLASH}"
+}
 
 # Script routines
 
@@ -78,6 +106,12 @@ function check_file_size {
     else
         return 0
     fi
+}
+
+# Function run command
+function run_command {
+    local _COMMAND_DATA=$1
+    echo "${_COMMAND_DATA}"
 }
 
 # Check if file exist
