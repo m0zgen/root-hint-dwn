@@ -80,7 +80,7 @@ function concat_string {
 }
 
 # Function delete word after previous slash
-function delete_word_after_previous_slash {
+function extract_path {
     local _STRING=$1
     local _STRING_LENGTH=${#_STRING}
     local _STRING_LENGTH_MINUS_ONE=$(( ${_STRING_LENGTH} - 1 ))
@@ -91,7 +91,7 @@ function delete_word_after_previous_slash {
 # Script routines
 
 # Check if download folder exist
-_TGT=$(delete_word_after_previous_slash "${DOWNLOAD_TARGET}")
+_TGT=$(extract_path "${DOWNLOAD_TARGET}")
 if [ ! -d "${_TGT}" ]; then
   mkdir -p "${_TGT}"
 fi
