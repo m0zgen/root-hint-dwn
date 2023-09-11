@@ -7,3 +7,9 @@ Root files information you can find on [IANA website](https://www.iana.org/domai
 Downloaded file is located in `root.hints` file in `downloads` directory.
 
 * URL: https://www.internic.net/domain/named.cache
+
+## Cron job for download
+
+```bash
+0 4 1 * * /path/to/root-hint-dwn/run.sh -c "telegram_notify" -t "/path/to/dest/root.hints" > /dev/null 2>&1
+```
