@@ -80,11 +80,21 @@ function concat_string {
     echo "${_STRING_WITHOUT_LAST_SLASH}"
 }
 
+# Function delete word after previous slash
+function delete_word_after_previous_slash {
+    local _STRING=$1
+    local _STRING_LENGTH=${#_STRING}
+    local _STRING_LENGTH_MINUS_ONE=$(( ${_STRING_LENGTH} - 1 ))
+    local _STRING_WITHOUT_LAST_SLASH=${_STRING:0:${_STRING_LENGTH_MINUS_ONE}}
+    local _STRING_WITHOUT_LAST_WORD=${_STRING_WITHOUT_LAST_SLASH%/*}
+    echo "${_STRING_WITHOUT_LAST_WORD}"
+}
 # Script routines
 
 # Check if download folder exist
-if [ ! -d "${DOWNLOAD_FOLDER}" ]; then
-  mkdir -p "${DOWNLOAD_FOLDER}"
+_TGT=$(delete_word_after_previous_slash "${DOWNLOAD_TARGET}")
+if [ ! -d "${_TGT}" ]; then
+  mkdir -p "${_TGT}"
 fi
 
 # Function check if file exist and return true if exist
