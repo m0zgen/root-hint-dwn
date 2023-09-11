@@ -71,7 +71,7 @@ if [[ "${_TARGET}" -eq "1" ]]; then
 fi
 
 # Return concatenated string without last slash
-function concat_string {
+function del_last_slash {
     local _STRING=$1
     local _STRING_LENGTH=${#_STRING}
     local _STRING_LENGTH_MINUS_ONE=$(( ${_STRING_LENGTH} - 1 ))
