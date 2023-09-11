@@ -49,8 +49,7 @@ if [[ "${_COMMAND}" -eq "1" ]]; then
         echo "No command passed"
         exit 1
     fi
-    echo "${_COMMAND_DATA}"
-    exit 0
+    # echo "${_COMMAND_DATA}"
 fi
 
 # Check passed URL
@@ -120,8 +119,11 @@ function check_file_size {
 
 # Function run command
 function run_command {
-    local _COMMAND_DATA=$1
-    echo "${_COMMAND_DATA}"
+    if [[ "${_COMMAND}" -eq "1" ]]; then
+        local _COMMAND_DATA=$1
+        echo "${_COMMAND_DATA}" | sh
+        # or can be used eval "${_COMMAND_DATA}"
+    fi
 }
 
 # Check if file exist
@@ -129,15 +131,20 @@ if check_file_exist; then
   # Check if file size is equal to remote file size
   if check_file_size; then
     echo "File exist and size is equal to remote file size"
+    # run_command "${_COMMAND_DATA}"
     exit 0
   else
     echo "File exist but size is not equal to remote file size. Downloading new file"
     # rm -f "${DOWNLOAD_TARGET}"
     # Download file
     wget -O "${DOWNLOAD_TARGET}" "${ROOT_HINT_URL}"
+    # If command passed
+    run_command "${_COMMAND_DATA}"
   fi
 else
     echo "File not exist. Downloading new file"
     # Download file
-    wget -O "${DOWNLOAD_TARGET}" "${ROOT_HINT_URL}"s
+    wget -O "${DOWNLOAD_TARGET}" "${ROOT_HINT_URL}"
+    # If command passed
+    run_command "${_COMMAND_DATA}"
 fi
