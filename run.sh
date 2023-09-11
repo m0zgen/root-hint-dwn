@@ -110,7 +110,7 @@ function check_file_exist {
 function check_file_size {
     local Local=$(wc -c < "${DOWNLOAD_TARGET}" | tr -d ' ')
     local Remote=$(curl -sI ${ROOT_HINT_URL} | awk '/content-length/ {sub("\r",""); print $2}' | tr -d ' ')
-    echo -e "Local: ${Local} \nRemote: ${Remote}"
+    echo -e "Local target (${DOWNLOAD_TARGET}): ${Local} \nRemote: ${Remote}"
     if [ $Local -ne $Remote ]; then
         return 1
     else
