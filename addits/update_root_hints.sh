@@ -24,6 +24,10 @@ function check_file_size {
     fi
 }
 
+run_command() {
+    "$@"
+}
+
 # Processing
 if [[ ! -d /usr/share/dns ]]; then
     mkdir -p /usr/share/dns
@@ -43,7 +47,7 @@ else
             echo 'No any arguments passed to script' # >&2
             exit 1
         else
-            echo "${1}" | sh
+            run_command $@
         fi
         # echo -e "\n; Downloaded at: $(date +%F-%T)" >> "$DESTINATION"
     else
