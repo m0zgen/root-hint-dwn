@@ -43,7 +43,6 @@ else
             echo 'No any arguments passed to script' # >&2
             exit 1
         fi
-fi
         # echo -e "\n; Downloaded at: $(date +%F-%T)" >> "$DESTINATION"
     else
         echo "Cant update root.hints some was wrong(."
