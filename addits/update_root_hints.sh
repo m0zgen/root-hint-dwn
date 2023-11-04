@@ -42,6 +42,8 @@ else
         if [[ $# -ne 1 ]]; then
             echo 'No any arguments passed to script' # >&2
             exit 1
+        else
+            echo "${1}" | sh
         fi
         # echo -e "\n; Downloaded at: $(date +%F-%T)" >> "$DESTINATION"
     else
