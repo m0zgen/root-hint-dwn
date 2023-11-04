@@ -38,7 +38,7 @@ if check_file_size; then
     exit 0
 else
     # Download file and save to target
-    /usr/bin/curl -o "$DESTINATION" "$URL"
+    /usr/bin/curl -s -o "$DESTINATION" "$URL"
 
     # Check if curl successed curl
     if [ $? -eq 0 ]; then
