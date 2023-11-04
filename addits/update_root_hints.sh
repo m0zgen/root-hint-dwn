@@ -39,7 +39,11 @@ else
     # Check if curl successed curl
     if [ $? -eq 0 ]; then
         echo "root.hints sucessfully updated."
-        systemctl restart pdns-recursor
+        if [[ $# -ne 1 ]]; then
+            echo 'No any arguments passed to script' # >&2
+            exit 1
+        fi
+fi
         # echo -e "\n; Downloaded at: $(date +%F-%T)" >> "$DESTINATION"
     else
         echo "Cant update root.hints some was wrong(."
