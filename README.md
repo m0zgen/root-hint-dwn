@@ -20,7 +20,12 @@ Before download file, script comparing local and remote file sizes, if sizes dif
 
 Or for `cron.d`:
 ```bash
-30 1 1,15 * * root /usr/local/bin/update_root_hints.sh '/usr/bin/systemctl restart service' 2>&1 | systemd-cat -t myhint
+30 1 1,15 * * root /usr/local/bin/update_root_hints.sh '/usr/bin/systemctl restart service' 2>&1
+```
+
+With output to `journalctl`:
+```bash
+30 1 1,15 * * root /usr/local/bin/update_root_hints.sh '/usr/bin/systemctl restart service' | systemd-cat -t myhint
 ```
 
 Then checking your `journalctl` ans Enjoy)
