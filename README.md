@@ -23,9 +23,4 @@ Or for `cron.d`:
 30 1 1,15 * * root /path/to/update_root_hints.sh '/usr/bin/systemctl restart service' 2>&1
 ```
 
-With output to `journalctl`:
-```bash
-30 1 1,15 * * root /path/to//update_root_hints.sh '/usr/bin/systemctl restart service' | systemd-cat -t myhint
-```
-
-Then checking your `journalctl` ans Enjoy)
+Enjoy.
